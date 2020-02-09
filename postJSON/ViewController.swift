@@ -13,8 +13,29 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        postJson { (status) in
+            print(status)
+        }
     }
-
+    func postJson(completion:@escaping (Int) -> ()){
+        let url = URL(string: "https://example.com/post")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let json = [
+            "email":"abc@email.com",
+            "password":"password"
+        ]
+        if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: []){
+            URLSession.shared.uploadTask(with: request, from: jsonData) { (data, response, error) in
+                print("some actions")
+                
+                if let httpResponse = response as! HTTPURLResponse?{
+                    completion(httpResponse.statusCode)
+                }
+            }.resume()
+        }
+    }
 
 }
 
