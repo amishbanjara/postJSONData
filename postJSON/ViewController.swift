@@ -27,6 +27,8 @@ class ViewController: UIViewController {
             "email":"abc@email.com",
             "password":"password"
         ]
+        
+        //using URL Session
         if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: []){
             URLSession.shared.uploadTask(with: request, from: jsonData) { (data, response, error) in
                 print("some actions")
