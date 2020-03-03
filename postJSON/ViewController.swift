@@ -17,6 +17,7 @@ class ViewController: UIViewController {
             print(status)
         }
     }
+    // post JSON Data
     func postJson(completion:@escaping (Int) -> ()){
         let url = URL(string: "https://example.com/post")!
         var request = URLRequest(url: url)
